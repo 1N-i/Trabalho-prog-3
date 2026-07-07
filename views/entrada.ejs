@@ -24,11 +24,46 @@
 
     <main>
       <h2><%= title %></h2>
+      <p>Preencha os dados abaixo para registrar um novo item no almoxarifado.</p>
+  
+      <form id="form-entrada" action="/entrada" method="POST">
+        <fieldset>
+            <legend>Dados do Produto</legend>
 
-      <p>
-        Bem-vindo à página de <%= title %>. O conteúdo principal entrará aqui em
-        breve!
-      </p>
+            <div class="form-group">
+                <label for="nomeItem">Nome do Item:</label>
+                <input type="text" id="nomeItem" name="nomeItem" required placeholder="Ex: Cabo HDMI, Resma de Papel...">
+            </div>
+
+            <div class="form-group">
+                <label for="categoria">Categoria:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="">Selecione...</option>
+                    <option value="eletronicos">Eletrônicos</option>
+                    <option value="escritorio">Material de Escritório</option>
+                    <option value="limpeza">Limpeza</option>
+                    <option value="ferramentas">Ferramentas</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="quantidade">Quantidade Inicial:</label>
+                <input type="number" id="quantidade" name="quantidade" min="0" required placeholder="0">
+            </div>
+
+            <div class="form-group">
+                <label for="quantidadeMinima">Quantidade Mínima para Alerta:</label>
+                <input type="number" id="quantidadeMinima" name="quantidadeMinima" min="1" required placeholder="Ex: 5">
+            </div>
+    
+            <div class="form-group">
+              <label for="imagemUrl">URL da Imagem (Opcional):</label>
+              <input type="url" id="imagemUrl" name="imagemUrl" placeholder="https://exemplo.com/imagem.png">
+            </div>
+    
+          <button type="submit" class="btn-submit">Cadastrar Item</button>
+        </fieldset>
+      </form>
     </main>
   </body>
 </html>
