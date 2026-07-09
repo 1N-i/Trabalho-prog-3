@@ -4,10 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %> - Almoxarifado Virtual</title>
-
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
-
   <body>
     <header>
       <h1>Almoxarifado Virtual</h1>
@@ -24,11 +22,54 @@
 
     <main>
       <h2><%= title %></h2>
-
       <p>
-        Bem-vindo à página de <%= title %>. O conteúdo principal entrará aqui em
-        breve!
+        Registre aqui a saída de materiais do estoque. Certifique-se de
+        preencher a quantidade correta para manter a precisão do sistema.
       </p>
+
+      <form id="form-retirada" action="/retirada" method="POST">
+        <fieldset>
+          <legend>Dados da Retirada</legend>
+
+          <div class="form-group">
+            <label for="nomeRetirada">Nome do Item:</label>
+            <input
+              type="text"
+              id="nomeRetirada"
+              name="nomeRetirada"
+              required
+              placeholder="Ex: Pasta térmica, Cabo de rede..."
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="qtdRetirada">Quantidade a Retirar:</label>
+            <input
+              type="number"
+              id="qtdRetirada"
+              name="qtdRetirada"
+              min="1"
+              required
+              placeholder="Ex: 2"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="responsavel">Responsável pela Retirada:</label>
+            <input
+              type="text"
+              id="responsavel"
+              name="responsavel"
+              required
+              placeholder="Quem está pegando o material?"
+            />
+          </div>
+
+          <button type="submit" class="btn-submit">Registrar Saída</button>
+        </fieldset>
+      </form>
     </main>
+
+    <script src="/javascripts/estoque.js"></script>
   </body>
 </html>

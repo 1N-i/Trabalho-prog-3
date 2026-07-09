@@ -1,32 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> - Almoxarifado Virtual</title> 
-    
-    <link rel="stylesheet" href="/stylesheets/style.css">
-</head>
-<body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %> - Almoxarifado Virtual</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
     <header>
-        <h1>Almoxarifado Virtual</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Dashboard</a></li>
-                <li><a href="/inventario">Inventário (Estoque)</a></li>
-                <li><a href="/entrada">Entrada de Itens</a></li>
-                <li><a href="/retirada">Retirada</a></li>
-                <li><a href="/sobre">Sobre a Equipe</a></li>
-            </ul>
-        </nav>
+      <h1>Almoxarifado Virtual</h1>
+      <nav>
+        <ul>
+          <li><a href="/">Dashboard</a></li>
+          <li><a href="/inventario">Inventário (Estoque)</a></li>
+          <li><a href="/entrada">Entrada de Itens</a></li>
+          <li><a href="/retirada">Retirada</a></li>
+          <li><a href="/sobre">Sobre a Equipe</a></li>
+        </ul>
+      </nav>
     </header>
 
     <main>
-        <h2><%= title %></h2>
-        
-        <p>Bem-vindo à página de <%= title %>. O conteúdo principal entrará aqui em breve!</p>
-    </main>
+      <h2>Painel de Controle</h2>
+      <p>
+        Bem-vindo ao dashboard do sistema. Gerencie o fluxo e monitore a
+        quantidade de itens em tempo real, desde materiais de escritório básicos
+        até componentes de hardware, como processadores Ryzen ou placas-mãe
+        ASUS, garantindo que nada falte na manutenção.
+      </p>
 
-</body>
+      <div class="dashboard-cards">
+        <div class="card">
+          <h3>Gestão de Estoque</h3>
+          <p>
+            Acesse a tabela dinâmica para consultar quantidades, buscar produtos
+            específicos e receber alertas automáticos de estoque crítico.
+          </p>
+          <a href="/inventario" class="btn-submit">Acessar Inventário</a>
+        </div>
+
+        <div class="card">
+          <h3>Novas Entradas</h3>
+          <p>
+            Registre a chegada de novos materiais no almoxarifado de forma
+            rápida e categorize cada item corretamente.
+          </p>
+          <a href="/entrada" class="btn-submit">Cadastrar Item</a>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>

@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
-
   <body>
     <header>
       <h1>Almoxarifado Virtual</h1>
@@ -24,11 +23,41 @@
 
     <main>
       <h2><%= title %></h2>
-
       <p>
-        Bem-vindo à página de <%= title %>. O conteúdo principal entrará aqui em
-        breve!
+        Aqui você pode visualizar, buscar e gerenciar todos os itens do
+        almoxarifado.
       </p>
+
+      <div class="form-group busca-container">
+        <label for="buscaItem">Pesquisar Item:</label>
+        <input
+          type="text"
+          id="buscaItem"
+          placeholder="Digite o nome do produto..."
+        />
+      </div>
+
+      <table id="tabela-estoque">
+        <thead>
+          <tr>
+            <th>Imagem</th>
+            <th>Nome do Item</th>
+            <th>Categoria</th>
+            <th>Qtd. Atual</th>
+            <th>Qtd. Mínima</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="corpo-tabela">
+          <tr>
+            <td colspan="6" class="texto-vazio">
+              Nenhum item cadastrado ainda. O estoque está vazio.
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </main>
+
+    <script src="/javascripts/estoque.js"></script>
   </body>
 </html>
