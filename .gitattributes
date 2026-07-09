@@ -1,0 +1,12 @@
+# Ignora pastas de configuração e binários
+.codesandbox/* linguist-vendored
+.devcontainer/* linguist-vendored
+bin/* linguist-vendored
+
+# Ignora arquivos do professor e de configuração
+routes/users.js linguist-vendored
+.eslintrc.json linguist-vendored
+app.js linguist-vendored
+package-lock.json linguist-vendored
+package.json linguist-vendored
+pnpm-lock.yaml linguist-vendored
