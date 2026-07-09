@@ -1,4 +1,56 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // 0- Dados placeholder (MOCK DATA)
+  let estoqueAtual = JSON.parse(localStorage.getItem("almoxarifado_itens"));
+
+  // Se o estoque não existir, injetamos os dados de teste
+  if (!estoqueAtual || estoqueAtual.length === 0) {
+    const dadosMock = [
+      {
+        id: 101,
+        nome: "Cabo de Rede (Cat6) 10m",
+        categoria: "eletronicos",
+        quantidade: 15,
+        quantidadeMinima: 5,
+        imagem: "images/placeholder1.webp",
+      },
+      {
+        id: 102,
+        nome: "Resma de Papel A4",
+        categoria: "escritorio",
+        quantidade: 2, // Quantidade menor que a mínima para testar o alerta
+        quantidadeMinima: 10,
+        imagem: "images/placeholder2.jfif",
+      },
+      {
+        id: 103,
+        nome: "Pasta Térmica Prata",
+        categoria: "eletronicos",
+        quantidade: 1, // Estoque crítico!
+        quantidadeMinima: 3,
+        imagem: "images/placeholder3.webp",
+      },
+      {
+        id: 104,
+        nome: "Álcool Isopropílico",
+        categoria: "limpeza",
+        quantidade: 12,
+        quantidadeMinima: 5,
+        imagem: "",
+      },
+      {
+        id: 105,
+        nome: "Chave Philips",
+        categoria: "ferramentas",
+        quantidade: 8,
+        quantidadeMinima: 2,
+        imagem: "images/placeholder4.jfif",
+      },
+    ];
+
+    // Salva os dados fictícios no localStorage
+    localStorage.setItem("almoxarifado_itens", JSON.stringify(dadosMock));
+  }
+
   // 1- Lógica de entrada (CREATE)
   const formEntrada = document.getElementById("form-entrada");
 
