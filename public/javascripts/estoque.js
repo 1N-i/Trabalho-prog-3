@@ -182,56 +182,52 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    // Carrega o estoque logo que a página de inventário é aberta
-    carregarEstoque();
+    carregarEstoque(); // Carrega o estoque logo que a página de inventário é aberta
 
-    // Lógica do botão de remover (DELETE)
+    // Lógica de clique na tabela (REMOVER E EDITAR) - Delegação de eventos
     corpoTabela.addEventListener("click", function (evento) {
-      if (evento.target.classList.contains("btn-remover")) {
-        // Pega o ID do item que está atrelado ao botão clicado
-        const idRemover = parseInt(evento.target.getAttribute("data-id"));
-        let estoque =
-          JSON.parse(localStorage.getItem("almoxarifado_itens")) || [];
+      // Puxa o estoque atualizado do localStorage toda vez que houver um clique na tabela
+      let estoque =
+        JSON.parse(localStorage.getItem("almoxarifado_itens")) || [];
 
-        // Remove do array o item que tem o ID igual ao que queremos apagar
-        estoque = estoque.filter((item) => item.id !== idRemover);
+      // Pega o ID do item que está atrelado ao botão clicado
+      const idBotaoClicado = parseInt(evento.target.getAttribute("data-id"));
+
+      // 1- Botão de Remover (DELETE)
+      if (evento.target.classList.contains("btn-remover")) {
+        // Remove do array o item que tem o ID igual ao que for apagar
+        estoque = estoque.filter((item) => item.id !== idBotaoClicado);
         localStorage.setItem("almoxarifado_itens", JSON.stringify(estoque));
 
         // Recarrega a tabela visualmente para refletir a exclusão
         carregarEstoque();
       }
-    });
 
-    // Lógica do botão editar (UPDATE)
-    corpoTabela.querySelectorAll(".btn-editar").forEach(function (botao) {
-      botao.addEventListener("click", function () {
-        const idParaEditar = parseInt(botao.getAttribute("data-id"));
-
+      // 2- Botão de Editar (UPDATE)
+      if (evento.target.classList.contains("btn-editar")) {
         // Encontra o item correspondente no array
-        const itemParaEditar = estoque.find((item) => item.id === idParaEditar);
+        const itemParaEditar = estoque.find(
+          (item) => item.id === idBotaoClicado
+        );
 
         if (itemParaEditar) {
-          // Pergunta o novo nome (já trazendo o nome atual preenchido)
+          // Pergunta o novo nome
           const novoNome = prompt(
             "Digite o novo nome do item:",
             itemParaEditar.nome
           );
+          if (novoNome === null) return; // Se o usuário cancelar o prompt, interrompe a edição
 
-          // Se o usuário cancelou o prompt do nome, interrompe a edição
-          if (novoNome === null) return;
-
-          // Pergunta a nova quantidade (já trazendo a quantidade atual)
+          // Pergunta a nova quantidade
           const novaQuantidadePrompt = prompt(
             "Digite a nova quantidade:",
             itemParaEditar.quantidade
           );
-
-          // Se o usuário cancelou o prompt da quantidade, interrompe
-          if (novaQuantidadePrompt === null) return;
+          if (novaQuantidadePrompt === null) return; // Se cancelar, interrompe
 
           const novaQuantidade = parseInt(novaQuantidadePrompt);
 
-          // Validações básicas para segurança e consistência dos dados
+          // Validações básicas para segurança
           if (novoNome.trim() === "") {
             alert("O nome do item não pode ficar vazio!");
             return;
@@ -243,19 +239,17 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
           }
 
-          // Atualiza os dados do objeto na memória
+          // Atualiza os dados do objeto
           itemParaEditar.nome = novoNome.trim();
           itemParaEditar.quantidade = novaQuantidade;
 
           // Salva o array atualizado de volta no localStorage
           localStorage.setItem("almoxarifado_itens", JSON.stringify(estoque));
-
           alert("Item atualizado com sucesso!");
 
-          // Recarrega a tabela na tela para mostrar os dados novos
-          carregarEstoque();
+          carregarEstoque(); // Recarrega a tabela na tela
         }
-      });
+      }
     });
 
     // Lógica da barra de pesquisa (FILTRO CONDICIONAL)
