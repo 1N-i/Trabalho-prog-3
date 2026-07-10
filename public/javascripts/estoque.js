@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         nome: "Cabo de Rede (Cat6) 10m",
         categoria: "eletronicos",
         quantidade: 15,
-        quantidadeMinima: 5,
+        quantidadeMinima: 4,
         imagem: "images/placeholder1.webp",
       },
       {
@@ -168,15 +168,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
-            <td>${imgTag}</td>
-            <td>${item.nome} ${tagAlerta}</td>
-            <td>${item.categoria}</td>
-            <td style="${corAlerta}">${item.quantidade}</td>
-            <td>${item.quantidadeMinima}</td>
-            <td>
-                <button class="btn-remover" data-id="${item.id}" style="background-color: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Remover</button>
-            </td>
-        `;
+                      <td>${imgTag}</td>
+                      <td>${item.nome} ${tagAlerta}</td>
+                      <td>${item.categoria}</td>
+                      <td style=\"${corAlerta}\">${item.quantidade}</td>
+                      <td>${item.quantidadeMinima}</td>
+                      <td>
+                          <button class="btn-editar" data-id="${item.id}" style="background-color: #2980b9; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px;">Editar</button>
+                          <button class="btn-remover" data-id="${item.id}" style="background-color: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Remover</button>
+                      </td>
+                    `;
         corpoTabela.appendChild(tr);
       });
     }
@@ -199,6 +200,62 @@ document.addEventListener("DOMContentLoaded", function () {
         // Recarrega a tabela visualmente para refletir a exclusão
         carregarEstoque();
       }
+    });
+
+    // Lógica do botão editar (UPDATE)
+    corpoTabela.querySelectorAll(".btn-editar").forEach(function (botao) {
+      botao.addEventListener("click", function () {
+        const idParaEditar = parseInt(botao.getAttribute("data-id"));
+
+        // Encontra o item correspondente no array
+        const itemParaEditar = estoque.find((item) => item.id === idParaEditar);
+
+        if (itemParaEditar) {
+          // Pergunta o novo nome (já trazendo o nome atual preenchido)
+          const novoNome = prompt(
+            "Digite o novo nome do item:",
+            itemParaEditar.nome
+          );
+
+          // Se o usuário cancelou o prompt do nome, interrompe a edição
+          if (novoNome === null) return;
+
+          // Pergunta a nova quantidade (já trazendo a quantidade atual)
+          const novaQuantidadePrompt = prompt(
+            "Digite a nova quantidade:",
+            itemParaEditar.quantidade
+          );
+
+          // Se o usuário cancelou o prompt da quantidade, interrompe
+          if (novaQuantidadePrompt === null) return;
+
+          const novaQuantidade = parseInt(novaQuantidadePrompt);
+
+          // Validações básicas para segurança e consistência dos dados
+          if (novoNome.trim() === "") {
+            alert("O nome do item não pode ficar vazio!");
+            return;
+          }
+          if (isNaN(novaQuantidade) || novaQuantidade < 0) {
+            alert(
+              "Por favor, digite uma quantidade válida (maior ou igual a 0)!"
+            );
+            return;
+          }
+
+          // Atualiza os dados do objeto na memória
+          itemParaEditar.nome = novoNome.trim();
+          itemParaEditar.quantidade = novaQuantidade;
+
+          // Salva o array atualizado de volta no localStorage
+          localStorage.setItem("almoxarifado_itens", JSON.stringify(estoque));
+
+          alert("Item atualizado com sucesso!");
+
+          // Recarrega a tabela na tela para mostrar os dados novos
+          carregarEstoque();
+        }
+      });
     });
 
     // Lógica da barra de pesquisa (FILTRO CONDICIONAL)
